@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Викторина AQ</title>
+    <title>Викторина "Инструменты адаптации"</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
@@ -55,32 +55,49 @@
 </head>
 <body>
     <div class="quiz-container" id="quiz">
-        <h1>Викторина #AQИнструмент</h1>
+        <h1>Викторина "Инструменты адаптации"</h1>
+         <div class="question">
+            <h3>1. Для чего в первую очередь используется инструмент «Заземление 5-4-3-2-1»?</h3>
+            <div class="options">
+                <label><input type="radio" name="q1" value="0"> Для развития эмпатии и внимания к деталям</label>
+                <label><input type="radio" name="q1" value="1"> Для быстрого снижения уровня стресса и панических состояний</label>
+                <label><input type="radio" name="q1" value="0"> Для планирования сложных проектов на неделю</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>2. Для чего предназначен инструмент ретроспективы «Злой, Грустный, Радостный» (Mad, Sad, Glad)?</h3>
+            <div class="options">
+                <label><input type="radio" name="q2" value="0"> Для оценки KPI сотрудников за месяц</label>
+                <label><input type="radio" name="q2" value="1"> Для выявления скрытого напряжения и эмоций в команде</label>
+                <label><input type="radio" name="q2" value="0"> Для планирования бюджета корпоратива</label>
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>3. На какой вопрос отвечает категория «Stop» в инструменте «Start, Stop, Continue»?</h3>
+            <div class="options">
+                <label><input type="radio" name="q3" value="1"> Что мешает нашей работе и что следует исключить из процессов?</label>
+                <label><input type="radio" name="q3" value="0"> На каком этапе нужно остановиться и отдохнуть?</label>
+                <label><input type="radio" name="q3" value="0"> Кого из сотрудников нужно уволить?</label>
+            </div>
+        </div>
         
         <div class="question">
-            <h3>1. Техника «Заземление 5-4-3-2-1». Что нужно найти первым (цифра 5)?</h3>
+            <h3>4. В чем основная идея инструмента развития любопытства «Глубокое погружение»?</h3>
             <div class="options">
-                <label><input type="radio" name="q1" value="0"> 5 вещей, которые можно потрогать</label>
-                <label><input type="radio" name="q1" value="1"> 5 вещей, которые вы видите</label>
-                <label><input type="radio" name="q1" value="0"> 5 звуков, которые слышите</label>
+                <label><input type="radio" name="q4" value="0"> Прочитать 10 книг по одной теме за неделю</label>
+                <label><input type="radio" name="q4" value="1"> Выделить время на детальное изучение одной темы, делая заметки и ментальные карты</label>
+                <label><input type="radio" name="q4" value="0"> Задавать собеседнику только закрытые вопросы (да/нет)</label>
             </div>
         </div>
-
+        
         <div class="question">
-            <h3>2. Для чего нужен инструмент «Mad, Sad, Glad»?</h3>
+            <h3>5. Какой инструмент позволяет руководителю диагностировать состояние команды в условиях удаленки?</h3>
             <div class="options">
-                <label><input type="radio" name="q2" value="0"> Для оценки KPI</label>
-                <label><input type="radio" name="q2" value="1"> Для выявления эмоций в команде</label>
-                <label><input type="radio" name="q2" value="0"> Для планирования бюджета</label>
-            </div>
-        </div>
-
-        <div class="question">
-            <h3>3. На что отвечает «Stop» в инструменте «Start, Stop, Continue»?</h3>
-            <div class="options">
-                <label><input type="radio" name="q3" value="1"> Что мешает и что нужно исключить</label>
-                <label><input type="radio" name="q3" value="0"> Где нужно отдохнуть</label>
-                <label><input type="radio" name="q3" value="0"> Кого уволить</label>
+                <label><input type="radio" name="q5" value="0"> Ежедневные часовые планерки</label>
+                <label><input type="radio" name="q5" value="1"> Регулярные анонимные «Пульс-опросы»</label>
+                <label><input type="radio" name="q5" value="0"> Система штрафов за опоздания</label>
             </div>
         </div>
 
@@ -88,32 +105,45 @@
     </div>
 
     <div id="result">
-        <h2>Ваш результат: <span id="score">0</span> из 3</h2>
+        <h2>Ваш результат: <span id="score">0</span> из 5</h2>
         <p id="message"></p>
         <button onclick="Telegram.WebApp.close()">Закрыть</button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Раскрыть на весь экран
+        tg.expand();
 
         function checkAnswers() {
             let score = 0;
-            const answers = { q1: '1', q2: '1', q3: '1' };
+            // Правильные ответы для 5 вопросов:
+            const answers = { q1: '1', q2: '1', q3: '1', q4: '1', q5: '1' };
             
             const q1 = document.querySelector('input[name="q1"]:checked');
             const q2 = document.querySelector('input[name="q2"]:checked');
             const q3 = document.querySelector('input[name="q3"]:checked');
+            const q4 = document.querySelector('input[name="q4"]:checked');
+            const q5 = document.querySelector('input[name="q5"]:checked');
 
             if (q1 && q1.value === answers.q1) score++;
             if (q2 && q2.value === answers.q2) score++;
             if (q3 && q3.value === answers.q3) score++;
+            if (q4 && q4.value === answers.q4) score++;
+            if (q5 && q5.value === answers.q5) score++;
 
             document.getElementById('quiz').style.display = 'none';
             document.getElementById('result').style.display = 'block';
             document.getElementById('score').innerText = score;
 
-            const msg = score === 3 ? "Отлично! Вы мастер AQ!" : "Неплохо, но стоит перечитать рубрику!";
+            let msg = "";
+            if (score === 5) {
+                msg = "🏆 Абсолютный чемпион! Вы отлично разбираетесь в AQ-инструментах.";
+            } else if (score >= 3) {
+                msg = "Отличный результат! У вас хорошая база знаний.";
+            } else {
+                msg = "Неплохо, но стоит перечитать рубрику #AQИнструмент, чтобы улучшить результат.";
+            }
+            
             document.getElementById('message').innerText = msg;
             
             // Отправка данных боту (опционально)
